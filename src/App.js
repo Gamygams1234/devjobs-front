@@ -1,10 +1,69 @@
-
 import "./App.scss";
+import { useState, useEffect } from "react";
+import data from "./data.json";
+import Header from "./Components/Header";
+import Homepage from "./Components/pages/homepage/Homepage";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, Link } from "react-router-dom";
+import {clsx} from "clsx";
+import { jwtDecode } from 'jwt-decode';
+import JobPage from "./Components/pages/joppage/JobPage";
+import SignUpEmployee from "./Components/pages/signup.js/SignUpEmployee";
+import SignUpEmployer from "./Components/pages/signup.js/SignUpEmployer";
+import Login from "./Components/pages/login/Login";
+import Dashboard from "./Components/pages/dashboard/Dashboard";
+import UserProfile from "./Components/userProfile/UserProfile";
+import EmployeeEdit from "./Components/pages/editPages/EmployeeEdit";
+
+
 
 function App() {
+
+
+  const [theme, setTheme] = useState("light")
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('token') !== null);
+  const classNames = clsx([theme, "App"])
+  const [jobs, setJobs] = useState(data)
+  const [user, setUser]= useState(null)
+  const [displayJobs, setDisplayJobs] = useState([])
+
+  useEffect(()=>{
+    jobs.forEach(job=>{
+      job.applied = false
+    })
+    if (localStorage.getItem('token')){
+      setUser(jwtDecode(localStorage.getItem('token')))
+    }
+  },[])
+  // login function
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUser(null)
+  };
+
+  useEffect(()=>{
+    if (localStorage.getItem('token')){
+      setUser(jwtDecode(localStorage.getItem('token')))
+      console.log(jwtDecode(localStorage.getItem('token')))
+    }
+  },[isLoggedIn])
+
   return (
-    <div className="App">
-      <h1>Hello World!</h1>
+    <div className={classNames}>
+      <Header handleThemeChange={setTheme} theme={theme} onLogout={handleLogout}  loggedIn={isLoggedIn}></Header>
+      <Routes>
+        <Route path="/" element={<Homepage jobs={jobs}></Homepage>}></Route>
+        <Route path="/jobs/:id" element={<JobPage   isLoggedIn = {isLoggedIn} />} ></Route>
+        <Route path="/signup/employee" element={<SignUpEmployee />}  ></Route>
+        <Route path="/signup/employer" element={<SignUpEmployer />}  ></Route>
+        <Route path="/edit/user/:id" element={<EmployeeEdit isLoggedIn={isLoggedIn} />}  ></Route>
+        <Route path="/profile/:id/" element={<UserProfile  isLoggedIn={isLoggedIn} />}  ></Route>
+        <Route path="/login" element={isLoggedIn ? <Navigate to="/" /> :<Login onLogin={handleLogin} />} ></Route>
+        <Route path="/dashboard" element={!isLoggedIn ? <Navigate to="/" /> :<Dashboard isLoggedIn= {isLoggedIn} />} ></Route>
+      </Routes>
     </div>
   );
 }
