@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import Loader from "../../Loader";
 import ReactTimeAgo from "react-time-ago";
 import { jwtDecode } from "jwt-decode";
+import { Buffer } from "buffer";
+import axios from "axios";
 
 export default function JobPage(props) {
   const { isLoggedIn } = props;
@@ -12,18 +14,43 @@ export default function JobPage(props) {
   // })[0];
   const [user, setUser] = useState(null);
   const [job, setJob] = useState(null);
+  const [applied, setApplied] = useState(false);
+  const url = process.env.REACT_APP_SERVER;
 
-  const applyJob = () => {
-    console.log("clicked");
+  const applyJob = async () => {
+    try {
+      const response = await axios.put(
+        `${url}/jobs/apply/${params.id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      setApplied(true);
+    } catch (error) {
+      console.error("Error uploading file: ", error);
+    }
   };
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER}/jobs/findone/${params.id}`)
-      .then((response) => response.json())
-      .then((data) => setJob(data))
-      .catch((err) => console.error(err));
     if (isLoggedIn) {
       setUser(jwtDecode(localStorage.getItem("token")));
     }
+    fetch(`${process.env.REACT_APP_SERVER}/jobs/findone/${params.id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setJob(data);
+        let user = jwtDecode(localStorage.getItem("token"));
+        if (data.applicants.map(item=>{
+          return item.applicant
+        }).includes(user.userId)) {
+          setApplied(true);
+        }
+      })
+      .catch((err) => console.error(err));
   }, []);
 
   if (!job) {
@@ -41,7 +68,7 @@ export default function JobPage(props) {
           <div className="inner-container ">
             <div className="job-banner bg-white-1">
               <div className="logo" style={{ backgroundColor: job.company.backgroundColor }}>
-                <img src={job.logo} alt="" />
+                {job.company.companyImage ? <img src={`data:image/jpeg;base64,${Buffer.from(job.company.companyImage, "binary").toString("base64")}`} /> : <img src="/images/stock-profile.jpg" alt="" />}
               </div>
               <div className="details">
                 <h5 className="text-black fw-700 mb-1">{job.company.companyName}</h5>
@@ -109,7 +136,7 @@ export default function JobPage(props) {
           <div className="inner-container ">
             <div className="job-banner bg-white-1">
               <div className="logo" style={{ backgroundColor: job.company.backgroundColor }}>
-                <img src={job.logo} alt="" />
+                {job.company.companyImage ? <img src={`data:image/jpeg;base64,${Buffer.from(job.company.companyImage, "binary").toString("base64")}`} /> : <img src="/images/stock-profile.jpg" alt="" />}
               </div>
               <div className="details">
                 <h5 className="text-black fw-700 mb-1">{job.company.companyName}</h5>
@@ -130,7 +157,7 @@ export default function JobPage(props) {
                   <h6 className="fw-800 text-violet ">{job.company.companyLocation}</h6>
                 </div>
                 <div className="right-side">
-                  {false ? (
+                  {applied ? (
                     <button disabled className="btn btn-1">
                       Applied
                     </button>
@@ -168,7 +195,7 @@ export default function JobPage(props) {
               <h5 className="fw-800 text-black mb-2">{job.position}</h5>
               <div className="text-dark-grey">{job.company.companyLocation}</div>
             </div>
-            {job.applied ? (
+            {applied ? (
               <button disabled className="btn btn-1">
                 Applied
               </button>
@@ -188,14 +215,16 @@ export default function JobPage(props) {
           <div className="inner-container ">
             <div className="job-banner bg-white-1">
               <div className="logo" style={{ backgroundColor: job.company.backgroundColor }}>
-                <img src={job.logo} alt="" />
+                {job.company.companyImage ? <img src={`data:image/jpeg;base64,${Buffer.from(job.company.companyImage, "binary").toString("base64")}`} /> : <img src="/images/stock-profile.jpg" alt="" />}
               </div>
               <div className="details">
                 <h5 className="text-black fw-700 mb-1">{job.company.companyName}</h5>
                 <p className="text-dark-grey">{job.company.companyWebsite}</p>
               </div>
               <div className="button">
-                <button className="btn btn-2">Company Site</button>
+              
+              {user.userId === job.company._id && <Link to={`/jobs/applicants/${job._id}`} className="btn btn-1">View Applicants</Link>}
+
               </div>
             </div>
 

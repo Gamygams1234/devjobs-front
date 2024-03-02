@@ -19,6 +19,7 @@ export default function EmployeeEdit(props) {
     summary: "",
     phone: "",
     linkedIn: "",
+    workExperiences: []
   });
   const [error, setError]= useState("")
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -35,6 +36,31 @@ export default function EmployeeEdit(props) {
 
   };
 
+  const handleAddMore= () => {
+    setValues(prevState => ({
+      ...prevState,
+      workExperiences: [...prevState.workExperiences, { company: '', position: '', duration: '' }]
+    }));
+  };
+  const handleRemove = (index) => {
+    const newWorkExperiences = [...values.workExperiences];
+    newWorkExperiences.splice(index, 1);
+    setValues(prevState => {
+     
+      return { ...prevState, workExperiences: newWorkExperiences };
+    });
+
+  };
+
+  const handleWorkExperienceChange = (e, index) => {
+    const { name, value } = e.target;
+    setValues(prevState => {
+      const updatedExperiences = [...prevState.workExperiences];
+      updatedExperiences[index][name] = value;
+      return { ...prevState, workExperiences: updatedExperiences };
+    });
+  };
+
   const showSuccess = () => (
     <div className="alert alert-success" style={{ display: success ? "" : "none" }}>
       The new category, {success}, has been added.
@@ -49,10 +75,17 @@ export default function EmployeeEdit(props) {
   const submit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-    for(const key in values){
-        formData.set(key, values[key])
-    }
-
+    formData.append('firstName', values.firstName);
+    formData.append('lastName', values.lastName);
+    formData.append('linkedIn', values.linkedIn);
+    formData.append('email', values.email);
+    formData.append('profilePicutre', values.profilePicture);
+    formData.append('github', values.github);
+    formData.append('headline', values.headline);
+    formData.append('portfolioWebsite', values.portfolioWebsite);
+    formData.append('summary', values.summary);
+    formData.append('phone', values.phone);
+    formData.append('workExperiences', JSON.stringify(values.workExperiences));
   
     try {
       const response = await axios.put(`${url}/accounts/update/candidate`,formData, {
@@ -193,9 +226,57 @@ export default function EmployeeEdit(props) {
               <textarea type="textarea" onChange={handleChange("summary")} value={summary} name="summary" className="form-control" id="inputSummary" placeholder="I am a web developer from Riverside California"></textarea>
             </div>
 
-            <button type="submit" className="btn btn-1">
-              Submit
-            </button>
+            <h3 className="text-black fw-800 mb-3">Work Expirience</h3>
+          {values.workExperiences.map((experience, index) => (
+            <div className="mb-3" key={index}>
+              <div className="form-row">
+                <div className="form-group col-md-6">
+                  <label for="company" className="text-black fw-800 mb-3">
+                    Company
+                  </label>
+                  <input type="text" placeholder="Company" name="company" className="form-control" value={experience.company} onChange={(event) =>handleWorkExperienceChange(event, index)} />
+                </div>
+                <div className="form-group col-md-6">
+                  <label for="position" className="text-black fw-800 mb-3">
+                    Positon
+                  </label>
+                  <input type="text" placeholder="Position" name="position" className="form-control" value={experience.position} onChange={(event) => handleWorkExperienceChange(event, index)} />
+                </div>
+              </div>
+              <div className="form-row">
+                <div className="form-group col-md-6">
+                  <label for="duration" className="text-black fw-800 mb-3">
+                    Duration
+                  </label>
+
+                  <input type="text" placeholder="Duration" name="duration" className="form-control" value={experience.duration} onChange={(event) => handleWorkExperienceChange(event, index)} />
+                </div>
+              </div>
+              <div className="form-group">
+                <label for="description" className="text-black fw-800 mb-3">
+                  Description
+                </label>
+                <textarea placeholder="Description" name="description" className="form-control" value={experience.description} onChange={(event) => handleWorkExperienceChange(event, index)} />
+              </div>
+
+              <div className="work-expirience-buttons">
+                {index > 0 && (
+                  <button type="button" className="btn btn-3 " onClick={() => handleRemove(index)}>
+                    Remove
+                  </button>
+                )}
+                {index === values.workExperiences.length - 1 && (
+                  <button type="button" className="btn btn-2" onClick={handleAddMore}>
+                    Add More
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+
+          <button type="submit" className="btn btn-1">
+            Submit
+          </button>
           </form>
         </div>
       </div>

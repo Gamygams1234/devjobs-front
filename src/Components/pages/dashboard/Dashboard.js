@@ -7,28 +7,27 @@ export default function Dashboard(props) {
   const { isLoggedIn } = props;
   const [dashboardUser, setDashboardUser] = useState(null);
   const [featuredUser, setFeaturedUser] = useState(null);
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
   const url = process.env.REACT_APP_SERVER;
 
   useEffect(() => {
-   const user  = jwtDecode(localStorage.getItem("token"));
-   console.log(url)
-   if (isLoggedIn){
-    fetch(`${url}/accounts/users/${user.userId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setDashboardUser(data);
-        console.log(data);
-      })
-      .catch((err) => console.error(err));
+    const user = jwtDecode(localStorage.getItem("token"));
+    console.log(url);
+    if (isLoggedIn) {
+      fetch(`${url}/accounts/users/${user.userId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setDashboardUser(data);
+        })
+        .catch((err) => console.error(err));
 
-      if(location.state != null){
-        setError(location.state.error)
+      if (location.state != null) {
+        setError(location.state.error);
       }
-    }else{
-        navigate('/login',{state:{error:"Must login to access dashbooard"}});
+    } else {
+      navigate("/login", { state: { error: "Must login to access dashbooard" } });
     }
   }, []);
 
@@ -43,18 +42,29 @@ export default function Dashboard(props) {
       <h4 className="card-header ">User Links</h4>
       <ul className="list-group ">
         <li className="list-group-item bg-white-1">
-        {dashboardUser &&
-          <Link className="nav-link" to={`/edit/user/${dashboardUser._id}/`}>
-            Edit User
-          </Link>
-        }
+          {dashboardUser && (
+            <Link className="nav-link" to={`/edit/user/${dashboardUser._id}/`}>
+              Edit User
+            </Link>
+          )}
         </li>
         <li className="list-group-item bg-white-1">
-        {dashboardUser &&
-          <Link className="nav-link" to={`/profile/${dashboardUser._id}/`}>
-            View Profile
-          </Link> }
+          {dashboardUser && (
+            <Link className="nav-link" to={`/profile/${dashboardUser._id}/`}>
+              View Profile
+            </Link>
+          )}
         </li>
+      
+      
+          {dashboardUser && dashboardUser.jobsApplied?.length > 0 && (
+            <li className="list-group-item bg-white-1">
+            <Link className="nav-link" to={`/user/applied/${dashboardUser._id}/`}>
+              Applied Jobs
+            </Link>
+                </li>
+          )}
+    
       </ul>
     </div>
   );
@@ -63,14 +73,18 @@ export default function Dashboard(props) {
       <h4 className="card-header">Admin Links</h4>
       <ul className="list-group">
         <li className="list-group-item bg-white-1">
-          <Link className="nav-link" to="/create/category">
-            Create Category
-          </Link>
+          {dashboardUser && (
+            <Link className="nav-link" to="/admin/create/job">
+              Create Jobs
+            </Link>
+          )}
         </li>
         <li className="list-group-item bg-white-1">
-          <Link className="nav-link" to="/create/product">
-            Create Product
-          </Link>
+          {dashboardUser && (
+            <Link className="nav-link" to={`/admin/profile/update/${dashboardUser._id}/`}>
+              Edit Company Details
+            </Link>
+          )}
         </li>
         <li className="list-group-item bg-white-1">
           <Link className="nav-link" to="/admin/orders">
@@ -98,8 +112,8 @@ export default function Dashboard(props) {
     return (
       <div className="outside-container dashboard">
         <div className="inner-container pt-4 pb-4">
-        {showError()}
-          <div >
+          {showError()}
+          <div>
             <div className="jumbotron">
               <h1 className="display-4 fw-600 ">This is the Dashboard</h1>
               <p className="lead">Thanks for coming to my store to check out some of the products.</p>
@@ -127,7 +141,6 @@ export default function Dashboard(props) {
                     {dashboardUser.jobsApplied && <li className="list-group-item bg-white-1">Jobs Applied: {dashboardUser.jobsApplied.length}</li>}
                     {dashboardUser.headline && <li className="list-group-item bg-white-1">Headline: {dashboardUser.headline}</li>}
                     {dashboardUser.summary && <li className="list-group-item bg-white-1">Summary: {dashboardUser.summary}</li>}
-
                   </ul>
                 </div>
               </div>

@@ -8,7 +8,6 @@ export default function SignUpEmployer() {
     companyName: "",
     email: "",
     password: "",
-    profilePicture: "",
     portfolioWebsite: "",
     website: "",
     companyLocation: "United States",
@@ -22,7 +21,7 @@ export default function SignUpEmployer() {
   const { companyName, email, password, companyLocation, website,  backgroundColor, companyPhone, companyImage,   formData, error } = values;
 
   const handleChange = (name) => (event) => {
-    const value = name === "profilePicture" ? event.target.files[0] : event.target.value;
+    const value = name === "companyImage" ? event.target.files[0] : event.target.value;
     formData.set(name, value);
     setValues({ ...values, [name]: value, error: "" });
   };
@@ -50,7 +49,7 @@ export default function SignUpEmployer() {
       console.log(response.data);
       navigate("/login")
     } catch (error) {
-      console.log("There is an errror")
+      console.log("There is an error")
       console.error("Error uploading file: ", error);
       setValues({ ...values, error: error.response.data.message });
     }
@@ -94,6 +93,7 @@ export default function SignUpEmployer() {
                 <option>Japan</option>
                 <option>New Zeland</option>
                 <option>Russia</option>
+                <option>Singapore</option>
               </select>
             </div>
           </div>

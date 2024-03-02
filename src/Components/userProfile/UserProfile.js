@@ -12,7 +12,7 @@ export default function UserProfile(props) {
   const [currentUser, setCurrentUser]= useState(null)
   const {isLoggedIn} = props;
   useEffect(() => {
-    fetch(`http://localhost:5000/accounts/users/${id}`)
+    fetch(`${process.env.REACT_APP_SERVER}/accounts/users/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setProfileUser(data);

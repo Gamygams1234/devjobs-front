@@ -56,6 +56,13 @@ $button2hoverbg: #c5c9f4;
     font-weight: 900;
 }
 
+.work-expirience-buttons{
+    display: flex;
+    justify-content: space-around;
+    .btn{
+        width: 100%;
+    }
+}
 
 .outside-container {
     // on the out side
@@ -229,6 +236,14 @@ ol li {
         color: $violet;
     }
 
+    .btn-3{
+        background-color: hsl(351, 60%, 40%);
+        color: $white;
+    }
+    .btn-3:hover{
+        filter: brightness(1.25);
+    }
+
     .load-more {
         display: flex;
         justify-content: center;
@@ -320,7 +335,7 @@ ol li {
     }
 
     // mobile homepage 
-    .home {
+    .home, .applied {
         .inner-container {
 
             display: grid;
@@ -411,7 +426,7 @@ ol li {
                     top: -1.5rem;
 
                     img {
-                        width: 100%;
+                        max-width: 100%;
                     }
                 }
 
@@ -558,6 +573,22 @@ ol li {
 
 
 .App.dark {
+    form{
+        input, textarea{
+            background-color: #19202D;
+            color:$white;
+            border: 1px solid $darkGrey;
+        }
+        input:focus, textarea:focus{
+            box-shadow: 0 0 0 0.2rem rgba(129,117,255,.25)
+        }
+        input:-internal-autofill-selected {
+            appearance: menulist-button;
+            background-image: none !important;
+            background-color: #19202D!important;
+            color:$white !important;
+        }
+    }
 
     background-color: $midnight;
 
@@ -585,7 +616,7 @@ ol li {
         color: $white;
     }
 
-    .home {
+    .home, .applied {
         .inner-container {
 
 
@@ -655,7 +686,7 @@ ol li {
 
         }
 
-        .home {
+        .home, .applied{
             .inner-container {
                 grid-template-columns: 1fr 1fr;
             }
@@ -691,7 +722,7 @@ ol li {
                         top: 0;
 
                         img {
-                            width: 100%;
+                            max-width: 100%;
                         }
                     }
 
@@ -880,7 +911,7 @@ ol li {
 
         }
 
-        .home {
+        .home, .applied {
             .inner-container {
 
                 grid-template-columns: 1fr 1fr 1fr;

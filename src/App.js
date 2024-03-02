@@ -13,6 +13,10 @@ import Login from "./Components/pages/login/Login";
 import Dashboard from "./Components/pages/dashboard/Dashboard";
 import UserProfile from "./Components/userProfile/UserProfile";
 import EmployeeEdit from "./Components/pages/editPages/EmployeeEdit";
+import JobCreate from "./Components/pages/jobsCreate/JobCreate";
+import AdminEdit from "./Components/pages/editPages/AdminEdit";
+import AppliedJobs from "./Components/pages/dashboard/AppliedJobs";
+import Applicants from "./Components/pages/dashboard/Applicants";
 
 
 
@@ -56,11 +60,15 @@ function App() {
       <Header handleThemeChange={setTheme} theme={theme} onLogout={handleLogout}  loggedIn={isLoggedIn}></Header>
       <Routes>
         <Route path="/" element={<Homepage jobs={jobs}></Homepage>}></Route>
-        <Route path="/jobs/:id" element={<JobPage   isLoggedIn = {isLoggedIn} />} ></Route>
+        <Route path="/jobs/profile/:id" element={<JobPage   isLoggedIn = {isLoggedIn} />} ></Route>
+        <Route path="/jobs/applicants/:id" element={<Applicants  isLoggedIn = {isLoggedIn} />} ></Route>
         <Route path="/signup/employee" element={<SignUpEmployee />}  ></Route>
         <Route path="/signup/employer" element={<SignUpEmployer />}  ></Route>
+        <Route path="/admin/create/job" element={<JobCreate isLoggedIn={isLoggedIn} />}  ></Route>
+        <Route path="/admin/profile/update/:id" element={<AdminEdit isLoggedIn={isLoggedIn} />}  ></Route>
+        <Route path="/user/applied/:id" element={<AppliedJobs isLoggedIn={isLoggedIn} />}  ></Route>
         <Route path="/edit/user/:id" element={<EmployeeEdit isLoggedIn={isLoggedIn} />}  ></Route>
-        <Route path="/profile/:id/" element={<UserProfile  isLoggedIn={isLoggedIn} />}  ></Route>
+        <Route path="/user/profile/:id/" element={<UserProfile  isLoggedIn={isLoggedIn} />}  ></Route>
         <Route path="/login" element={isLoggedIn ? <Navigate to="/" /> :<Login onLogin={handleLogin} />} ></Route>
         <Route path="/dashboard" element={!isLoggedIn ? <Navigate to="/" /> :<Dashboard isLoggedIn= {isLoggedIn} />} ></Route>
       </Routes>
