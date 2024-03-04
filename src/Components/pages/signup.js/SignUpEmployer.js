@@ -40,8 +40,9 @@ export default function SignUpEmployer() {
 
   const submit = async (event) => {
     event.preventDefault();
+    formData.set("companyLocation", companyLocation);
     try {
-      const response = await axios.post("http://localhost:5000/accounts/create/admin", formData, {
+      const response = await axios.post(`${process.env.REACT_APP_SERVER}/accounts/create/admin`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

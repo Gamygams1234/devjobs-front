@@ -56,10 +56,11 @@ $button2hoverbg: #c5c9f4;
     font-weight: 900;
 }
 
-.work-expirience-buttons{
+.work-expirience-buttons {
     display: flex;
     justify-content: space-around;
-    .btn{
+
+    .btn {
         width: 100%;
     }
 }
@@ -194,6 +195,21 @@ ol li {
     background-color: $lightGrey;
     transition: background-color .2s ease-in-out;
 
+
+    .login, .dashboard{
+        a{
+            color:$violet;
+            transition: filter .2s ease-in-out; 
+        }
+        a:hover{
+           filter: brightness(.5);
+    
+        }
+
+    }
+
+
+
     // buttons
     .btn {
         background-color: $violet;
@@ -236,11 +252,12 @@ ol li {
         color: $violet;
     }
 
-    .btn-3{
+    .btn-3 {
         background-color: hsl(351, 60%, 40%);
         color: $white;
     }
-    .btn-3:hover{
+
+    .btn-3:hover {
         filter: brightness(1.25);
     }
 
@@ -311,6 +328,23 @@ ol li {
         color: $white;
     }
 
+    .no-options {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 1rem;
+        width: 100%;
+        min-height: calc(100vh - 350px);
+
+        .icon{
+            color: $violet;
+            height: 4rem;
+            svg{
+                height:3rem;
+            }
+        }
+    }
 
 
 
@@ -335,7 +369,8 @@ ol li {
     }
 
     // mobile homepage 
-    .home, .applied {
+    .home,
+    .applied {
         .inner-container {
 
             display: grid;
@@ -359,6 +394,24 @@ ol li {
                 flex-direction: column;
                 justify-content: space-between;
 
+                .profile-picture{
+                    padding: 0;
+                    position: absolute;
+                    width: 2.2rem;
+                    height: 2.2rem;
+                    display: flex;
+                    justify-content: center;
+                    align-content: center;
+                    border-radius: .25rem;
+                    top: -1rem;
+
+                    img {
+                        width: 100%;
+                        object-fit: cover;
+
+                    }
+
+                }
                 .company-logo {
 
                     padding: .25rem;
@@ -498,24 +551,49 @@ ol li {
     }
 
     .dashboard {
+        // a{
+        //     color:$violet;
+        //     transition: filter .2s ease-in-out;
+        // }
+        // a:hover{
+        //    filter: brightness(1.5);
+    
+        // }
         .jumbotron {
             background-image: url("./assets/mobile/bg-pattern-header.svg");
             background-size: cover;
             background-repeat: no-repeat;
-            color:$white;
+            color: $white;
 
         }
-        .card-header{
+        ol, ul {
+            list-style: none;
+        }
+
+        li::before{
+            content:"";
+        }
+        .card-header {
             background-image: url("./assets/mobile/bg-pattern-header.svg");
             background-size: cover;
             background-repeat: no-repeat;
-            color:$white;
+            color: $white;
         }
     }
+
     // profile mobile
-    .profile {
+    .profile{
         .inner-container {
             max-width: 730px;
+            a{
+                color:$violet;
+                transition: filter .2s ease-in-out;
+            }
+            a:hover{
+               filter: brightness(1.5);
+        
+            }
+
             .profile-banner {
                 width: calc(100% - 3rem);
                 display: flex;
@@ -554,6 +632,7 @@ ol li {
                     justify-content: center;
                     flex-direction: column;
                     margin-bottom: 2rem;
+             
 
                 }
 
@@ -565,28 +644,83 @@ ol li {
 
 
             }
+            .resume {
+                display: flex;
+                flex-direction: column;
+
+                margin-top: 8.5rem;
+                padding: 2.25rem 1.5rem;
+                border-radius: 0.25rem;
+
+        
+                .top-job-section {
 
 
-        }}
+                    .left-side {
+                        margin-bottom: 1rem;
+                    }
+
+                    .right-side {
+                        width: 100%;
+
+                        .btn {
+                            width: 100%;
+                        }
+                    }
+
+                }
+
+
+
+            }
+
+
+        }
+    }
 
 }
 
 
 .App.dark {
-    form{
-        input, textarea{
+    .inner-container{
+
+ 
+    }
+
+    
+
+    .login , .dashboard{
+        a{
+            color:$violet;
+            transition: filter .2s ease-in-out; 
+        }
+        a:hover{
+           filter: brightness(1.25);
+    
+        }
+
+    }
+
+
+    form {
+
+        input,
+        textarea {
             background-color: #19202D;
-            color:$white;
+            color: $white;
             border: 1px solid $darkGrey;
         }
-        input:focus, textarea:focus{
-            box-shadow: 0 0 0 0.2rem rgba(129,117,255,.25)
+
+        input:focus,
+        textarea:focus {
+            box-shadow: 0 0 0 0.2rem rgba(129, 117, 255, .25)
         }
+
         input:-internal-autofill-selected {
             appearance: menulist-button;
             background-image: none !important;
-            background-color: #19202D!important;
-            color:$white !important;
+            background-color: #19202D !important;
+            color: $white !important;
         }
     }
 
@@ -616,7 +750,8 @@ ol li {
         color: $white;
     }
 
-    .home, .applied {
+    .home,
+    .applied {
         .inner-container {
 
 
@@ -686,7 +821,8 @@ ol li {
 
         }
 
-        .home, .applied{
+        .home,
+        .applied {
             .inner-container {
                 grid-template-columns: 1fr 1fr;
             }
@@ -803,7 +939,7 @@ ol li {
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        
+
                         border-radius: .25rem;
                         position: relative;
                         top: 0;
@@ -911,7 +1047,8 @@ ol li {
 
         }
 
-        .home, .applied {
+        .home,
+        .applied {
             .inner-container {
 
                 grid-template-columns: 1fr 1fr 1fr;
@@ -955,11 +1092,15 @@ ol li {
             .inner-container {
                 .navbar-collapse {
                     margin-top: 1rem;
-                    z-index: 100;
+                    z-index: 50;
                     background-color: $white;
                     padding: 1.5rem 1rem;
                     border-radius: 1rem;
                     border: 4px solid $grey;
+                    position: absolute;
+                    width: 100%;
+                    left: 0rem;
+                    top : 3rem;
 
                     .nav-link {
                         color: $midnight;
@@ -990,7 +1131,7 @@ ol li {
         .header {
             .inner-container {
                 .navbar-collapse {
-                    z-index: 100;
+                    z-index: 50;
                     background-color: $midnight;
 
 

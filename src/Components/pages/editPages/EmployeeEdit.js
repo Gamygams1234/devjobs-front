@@ -260,15 +260,20 @@ export default function EmployeeEdit(props) {
               </div>
 
               <div className="work-expirience-buttons">
-                {index > 0 && (
-                  <button type="button" className="btn btn-3 " onClick={() => handleRemove(index)}>
-                    Remove
-                  </button>
-                )}
-                {index === values.workExperiences.length - 1 && (
+              {values.workExperiences.length === 1 && (
                   <button type="button" className="btn btn-2" onClick={handleAddMore}>
                     Add More
                   </button>
+                )}
+                {index === values.workExperiences.length - 1 && values.workExperiences.length !== 1 && (
+                  <>
+                    <button type="button" className="btn btn-3 " onClick={() => handleRemove(index)}>
+                      Remove
+                    </button>
+                    <button type="button" className="btn btn-2" onClick={handleAddMore}>
+                      Add More
+                    </button>
+                  </>
                 )}
               </div>
             </div>

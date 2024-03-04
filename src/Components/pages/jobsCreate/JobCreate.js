@@ -4,9 +4,13 @@ import { jwtDecode } from "jwt-decode";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
+
+
 export default function JobCreate(props) {
   const { isLoggedIn } = props;
+
   const [values, setValues] = useState({
+
     position: "",
     contract: "",
     descripton: "",
@@ -16,6 +20,8 @@ export default function JobCreate(props) {
     roleItems: "",
     portfolioWebsite: "",
   });
+
+
 
   
 
@@ -90,6 +96,7 @@ export default function JobCreate(props) {
       <div className="inner-container pt-2">
         {showSuccess()}
         {showError()}
+        <h4 className="text-black fw-800 mb-3">Create Job</h4>
         <form onSubmit={submit} encType="multipart/form-data">
           <div className="form-row">
             <div className="form-group col-md-6">
@@ -118,14 +125,14 @@ export default function JobCreate(props) {
 
           <div className="form-group">
             <label for="requirementsContent" className="text-black fw-800 mb-3">
-              Requirements Content
+              Requirements Content 
             </label>
             <textarea type="textarea" onChange={handleChange("requirmentsContent")} value={requirmentsContent} name="requirementsContent" className="form-control" id="inputRequirementsContent"></textarea>
           </div>
 
           <div className="form-group">
             <label for="requirementsItems" className="text-black fw-800 mb-3">
-              Requirements Items
+              Requirements Items (period sepreated list)
             </label>
             <textarea type="textarea" onChange={handleChange("requirmentsItems")} value={requirmentsItems} name="requirementsItems" className="form-control" id="inputRequirementsItems"></textarea>
           </div>
@@ -139,7 +146,7 @@ export default function JobCreate(props) {
 
           <div className="form-group">
             <label for="roleItems" className="text-black fw-800 mb-3">
-              Role Items
+              Role Items (period sepreated list)
             </label>
             <textarea type="textarea" onChange={handleChange("roleItems")} value={roleItems} name="roleItems" className="form-control" id="inputRoleItems"></textarea>
           </div>

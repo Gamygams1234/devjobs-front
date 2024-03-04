@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Redirect, Route, useLocation } from "react-router-dom";
+import { useNavigate, Redirect, Route, useLocation, Link } from "react-router-dom";
 
 export default function Login(props) {
   const { onLogin } = props;
@@ -25,7 +25,7 @@ export default function Login(props) {
     if (response.ok) {
       localStorage.setItem("token", data.token);
       onLogin();
-      navigate("/");
+      navigate("/dashboard");
     } else {
       setError(data.message);
     }
@@ -46,7 +46,7 @@ export default function Login(props) {
   );
 
   return (
-    <div className="outside-container">
+    <div className="outside-container login">
       <div className="inner-container pt-2">
         {showError()}
 
@@ -64,6 +64,16 @@ export default function Login(props) {
             </label>
             <input className="form-control" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required></input>
           </div>
+          <div className="pb-4 text-dark-grey fw-600">
+          <small>
+            New Job Seeker? <Link to="/signup/employee">Click here</Link> to sign up!
+          </small>
+        </div>
+        <div className="pb-4 text-dark-grey fw-600">
+          <small>
+            New Employer? <Link to="/signup/employer">Click here</Link> to sign up!
+          </small>
+        </div>
           <button type="submit" className="btn btn-1">
             Sign in
           </button>

@@ -223,7 +223,7 @@ export default function JobPage(props) {
               </div>
               <div className="button">
               
-              {user.userId === job.company._id && <Link to={`/jobs/applicants/${job._id}`} className="btn btn-1">View Applicants</Link>}
+              {user.userId === job.company._id && <Link to={`/jobs/applicants/${job._id}`} className="btn btn-2">View Applicants</Link>}
 
               </div>
             </div>
@@ -237,7 +237,7 @@ export default function JobPage(props) {
                   <h5 className="fw-800 text-black mb-2">{job.position}</h5>
                   <h6 className="fw-800 text-violet ">{job.company.companyLocation}</h6>
                 </div>
-                <div className="right-side">{user.userId === job.company._id && <button className="btn btn-1">Edit Job</button>}</div>
+                <div className="right-side">{user.userId === job.company._id && <Link to={`/edit/jobs/${params.id}`}className="btn btn-1">Edit Job</Link>}</div>
               </div>
               <div className="main-section ">
                 <p className="text-dark-grey mb-4">{job.description}</p>

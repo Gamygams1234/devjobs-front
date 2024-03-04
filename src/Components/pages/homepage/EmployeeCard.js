@@ -10,9 +10,9 @@ export default function EmployeeCard(props) {
   return (
     <NavLink to={link} className="job-card">
       <div>
-        <div className="company-logo" style={{ backgroundColor: background }}>
-          {profile.applicant.profileImage ? (
-            <img src={`data:image/jpeg;base64,${Buffer.from(profile.profilePicture, "binary").toString("base64")}`}/>
+        <div className="profile-picture" style={{ backgroundColor: background }}>
+          {profile.applicant.profilePicture ? (
+            <img src={`data:image/jpeg;base64,${Buffer.from(profile.applicant.profilePicture, "binary").toString("base64")}`}/>
           ) : (
             <img src="/images/stock-profile.jpg" alt=""/>
           )}

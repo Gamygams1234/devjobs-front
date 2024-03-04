@@ -46,13 +46,9 @@ export default function SignUpEmployee() {
     event.preventDefault();
     // const formData = new FormData();
     // formData.append('profilePicture', file);
-   
 
-    formData.set('workExperiences', JSON.stringify(workExperiences));
-    console.log(workExperiences)
-
-    
-  
+    formData.set("workExperiences", JSON.stringify(workExperiences));
+    console.log(workExperiences);
 
     try {
       const response = await axios.post(`${process.env.REACT_APP_SERVER}/accounts/create/candidate`, formData, {
@@ -81,7 +77,6 @@ export default function SignUpEmployee() {
     const newWorkExperiences = [...workExperiences];
     newWorkExperiences[index][name] = value;
     setWorkExperiences(newWorkExperiences);
-  
   };
 
   return (
@@ -203,15 +198,20 @@ export default function SignUpEmployee() {
               </div>
 
               <div className="work-expirience-buttons">
-                {index > 0 && (
-                  <button type="button" className="btn btn-3 " onClick={() => handleRemove(index)}>
-                    Remove
-                  </button>
-                )}
-                {index === workExperiences.length - 1 && (
+                {workExperiences.length === 1 && (
                   <button type="button" className="btn btn-2" onClick={handleAddMore}>
                     Add More
                   </button>
+                )}
+                {index === workExperiences.length - 1 && workExperiences.length !== 1 && (
+                  <>
+                    <button type="button" className="btn btn-3 " onClick={() => handleRemove(index)}>
+                      Remove
+                    </button>
+                    <button type="button" className="btn btn-2" onClick={handleAddMore}>
+                      Add More
+                    </button>
+                  </>
                 )}
               </div>
             </div>

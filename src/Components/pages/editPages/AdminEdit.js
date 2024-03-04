@@ -102,6 +102,8 @@ export default function AdminEdit(props) {
         <div className="inner-container pt-2">
           {showSuccess()}
           {showError()}
+
+          <h2 className="text-black fw-800 mb-4">Edit Details</h2>
           <form onSubmit={submit} encType="multipart/form-data">
             <div className="form-row">
               <div className="form-group col-md-6">
@@ -118,12 +120,7 @@ export default function AdminEdit(props) {
               </div>
             </div>
             <div className="form-row">
-              <div className="form-group col-md-6">
-                <label for="password" className="text-black fw-800 mb-3">
-                  Password
-                </label>
-                <input required type="password" onChange={handleChange("password")} value={password} name="password" className="form-control" id="inputPassword"></input>
-              </div>
+          
               <div className="form-group col-md-6">
                 <label for="companyLocation" className="text-black fw-800 mb-3">
                   Company Location
@@ -170,7 +167,7 @@ export default function AdminEdit(props) {
             </div>
 
             <button type="submit" className="btn btn-1">
-              Sign Up
+              Submit
             </button>
           </form>
         </div>

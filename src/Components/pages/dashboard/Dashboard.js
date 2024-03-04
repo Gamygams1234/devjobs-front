@@ -14,7 +14,7 @@ export default function Dashboard(props) {
 
   useEffect(() => {
     const user = jwtDecode(localStorage.getItem("token"));
-    console.log(url);
+ 
     if (isLoggedIn) {
       fetch(`${url}/accounts/users/${user.userId}`)
         .then((response) => response.json())
@@ -50,7 +50,7 @@ export default function Dashboard(props) {
         </li>
         <li className="list-group-item bg-white-1">
           {dashboardUser && (
-            <Link className="nav-link" to={`/profile/${dashboardUser._id}/`}>
+            <Link className="nav-link" to={`/user/profile/${dashboardUser._id}/`}>
               View Profile
             </Link>
           )}
@@ -87,14 +87,11 @@ export default function Dashboard(props) {
           )}
         </li>
         <li className="list-group-item bg-white-1">
-          <Link className="nav-link" to="/admin/orders">
-            View Orders
-          </Link>
-        </li>
-        <li className="list-group-item bg-white-1">
-          <Link className="nav-link" to="/admin/products">
-            Manage Products
-          </Link>
+        {dashboardUser && (
+            <Link className="nav-link" to={`/jobs/company/${dashboardUser._id}/`}>
+              View Company's Jobs
+            </Link>
+          )}
         </li>
       </ul>
     </div>
@@ -115,8 +112,13 @@ export default function Dashboard(props) {
           {showError()}
           <div>
             <div className="jumbotron">
-              <h1 className="display-4 fw-600 ">This is the Dashboard</h1>
-              <p className="lead">Thanks for coming to my store to check out some of the products.</p>
+            {dashboardUser.role ==="admin" ?
+            <h1 className="display-4 fw-600 ">Welcome {dashboardUser.companyName}</h1>:
+
+             <h1 className="display-4 fw-600 ">Welcome {dashboardUser.firstName} {dashboardUser.lastName}</h1>
+            }
+   
+              {/* <p className="lead">Thanks for coming to my store to check out some of the products.</p> */}
             </div>
             <div className="row">
               <div className="col-lg-3 col-md-5 order-2">{dashboardUser.role === "admin" ? adminLinks : userLinks}</div>
@@ -136,6 +138,7 @@ export default function Dashboard(props) {
                     {dashboardUser.phone && <li className="list-group-item bg-white-1">Phone: {dashboardUser.phone}</li>}
                     <li className="list-group-item bg-white-1">User Role: {dashboardUser.role === "admin" ? "Admin" : "Registered User"}</li>
                     {dashboardUser.portfolioWebsite && <li className="list-group-item bg-white-1">Portfolio: {dashboardUser.portfolioWebsite}</li>}
+                    {dashboardUser.companyLocation && <li className="list-group-item bg-white-1">Company Location: {dashboardUser.companyLocation}</li>}
                     {dashboardUser.github && <li className="list-group-item bg-white-1">Github Username: {dashboardUser.github}</li>}
                     {dashboardUser.linkedIn && <li className="list-group-item bg-white-1">LinkedIn: {dashboardUser.linkedIn}</li>}
                     {dashboardUser.jobsApplied && <li className="list-group-item bg-white-1">Jobs Applied: {dashboardUser.jobsApplied.length}</li>}
