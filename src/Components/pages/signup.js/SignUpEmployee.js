@@ -28,7 +28,7 @@ export default function SignUpEmployee() {
     const value = name === "profilePicture" ? event.target.files[0] : event.target.value;
     formData.set(name, value);
     setValues({ ...values, [name]: value, error: "" });
-    console.log(formData);
+ 
   };
 
   const showSuccess = () => (
@@ -48,15 +48,14 @@ export default function SignUpEmployee() {
     // formData.append('profilePicture', file);
 
     formData.set("workExperiences", JSON.stringify(workExperiences));
-    console.log(workExperiences);
-
+  
     try {
       const response = await axios.post(`${process.env.REACT_APP_SERVER}/accounts/create/candidate`, formData, {
         headers: {
           "Content-Type": "multipart/form",
         },
       });
-      console.log(response.data);
+
       navigate("/login");
     } catch (error) {
       console.error("Error uploading file: ", error);

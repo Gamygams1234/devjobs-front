@@ -62,6 +62,7 @@ export default function JobEdit(props) {
     };
 
     const token = localStorage.getItem("token")
+    const user = jwtDecode(localStorage.getItem("token"))
 
     try {
       const response = await axios.put(`${process.env.REACT_APP_SERVER}/jobs/editjob/${id}`, job, {
@@ -70,7 +71,7 @@ export default function JobEdit(props) {
           "Content-Type": "application/json",
         },
       });
-      navigate("/dashboard");
+      navigate(`/jobs/company/${user.userId}`);
     } catch (error) {
       console.error("Error uploading file: ", error);
     }
@@ -85,7 +86,7 @@ export default function JobEdit(props) {
       fetch(`${process.env.REACT_APP_SERVER}/jobs/findone/${params.id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+
         let content = {}
         content.requirmentsContent = data.requirements.content
         content.requirmentsItems = data.requirements.items.join(". ") 

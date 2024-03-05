@@ -50,7 +50,7 @@ export default function (props) {
           {displayJobs
             .map((item, index) => {
               return <JobCard key={index} job={item} />;
-            })
+            }).reverse()
             .slice(0, limit)}
         </div>
         <div className="load-more">

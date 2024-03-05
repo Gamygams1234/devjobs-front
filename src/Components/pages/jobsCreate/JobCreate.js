@@ -12,7 +12,7 @@ export default function JobCreate(props) {
   const [values, setValues] = useState({
 
     position: "",
-    contract: "",
+    contract: "Full Time",
     descripton: "",
     requirmentsContent: "",
     requirmentsItems: "",
@@ -66,6 +66,7 @@ export default function JobCreate(props) {
     };
 
     const token = localStorage.getItem("token")
+    const user = jwtDecode(localStorage.getItem("token"))
 
     try {
       const response = await axios.post(`${process.env.REACT_APP_SERVER}/jobs/create`, job, {
@@ -74,7 +75,7 @@ export default function JobCreate(props) {
           "Content-Type": "application/json",
         },
       });
-      navigate("/dashboard");
+      navigate(`/jobs/company/${user.userId}`);
     } catch (error) {
       console.error("Error uploading file: ", error);
     }

@@ -55,7 +55,6 @@ export default function AdminEdit(props) {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(response.data);
       navigate("/login");
     } catch (error) {
       console.error("Error uploading file: ", error);
@@ -68,7 +67,7 @@ export default function AdminEdit(props) {
       fetch(`${url}/accounts/users/${id}`)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+       
           setValues(data);
         })
         .catch((err) => console.error(err))
@@ -80,13 +79,7 @@ export default function AdminEdit(props) {
     }
   }, []);
 
-  useEffect(() => {
-    //   for (const [key, value] of Object.entries(data)) {
-    //       console.log({[key]: value})
-    //       setValues({...values, [key]: value})
-    //     }
-    console.log(values);
-  }, [values]);
+
 
   if (loading) {
     return (

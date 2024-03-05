@@ -47,10 +47,10 @@ export default function SignUpEmployer() {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(response.data);
+
       navigate("/login")
     } catch (error) {
-      console.log("There is an error")
+
       console.error("Error uploading file: ", error);
       setValues({ ...values, error: error.response.data.message });
     }
