@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 
 export default function EmployerJobs(props) {
   const { jobs, companyName } = props;
-  const params = useParams()
+  const params = useParams();
 
   const [limit, setLimit] = useState(12);
   const [allJobs, setAllJobs] = useState([]);
@@ -32,14 +32,14 @@ export default function EmployerJobs(props) {
   if (loading) {
     return (
       <div className="outside-container">
-        <div className="inner-container pt-5 row justify-content-md-center ">
+        <div className="inner-container loader pt-5 row justify-content-md-center ">
           <Loader />
         </div>
       </div>
     );
   } else if (
     allJobs.filter((job) => {
-        return job.company._id === params.id;
+      return job.company._id === params.id;
     }).length >= 1
   ) {
     return (
@@ -57,7 +57,10 @@ export default function EmployerJobs(props) {
                 .slice(0, limit)}
             </div>
             <div className="load-more">
-              {limit < allJobs.length && (
+              {limit <
+                allJobs.filter((job) => {
+                  return job.company._id === params.id;
+                }).length && (
                 <button onClick={increaseJobs} className="btn btn-1 ">
                   Load More
                 </button>

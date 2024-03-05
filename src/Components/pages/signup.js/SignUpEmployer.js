@@ -92,7 +92,7 @@ export default function SignUpEmployer() {
                 <option>United Kingdom</option>
                 <option>Germany</option>
                 <option>Japan</option>
-                <option>New Zeland</option>
+                <option>New Zealand</option>
                 <option>Russia</option>
                 <option>Singapore</option>
               </select>

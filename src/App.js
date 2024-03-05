@@ -48,6 +48,7 @@ function App() {
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUser(null)
+    localStorage.removeItem("token")
   };
 
   useEffect(()=>{

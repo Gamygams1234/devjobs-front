@@ -34,7 +34,7 @@ export default function (props) {
   if (loading) {
     return (
       <div className="outside-container">
-        <div className="inner-container pt-5 row justify-content-md-center ">
+        <div className="inner-container loader pt-5 row justify-content-md-center ">
           <Loader />
         </div>
       </div>
@@ -56,7 +56,7 @@ export default function (props) {
         <div className="load-more">
 
         
-          {limit < allJobs.length && (
+          {limit < displayJobs.length && (
             <button onClick={increaseJobs} className="btn btn-1 ">
               Load More
             </button>

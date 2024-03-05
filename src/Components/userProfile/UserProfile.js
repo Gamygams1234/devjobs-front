@@ -28,7 +28,7 @@ export default function UserProfile(props) {
   if (!profileUser) {
     return (
       <div className="outside-container">
-        <div className="inner-container pt-5 row justify-content-md-center ">
+        <div className="inner-container loader pt-5 row justify-content-md-center ">
           <Loader />
         </div>
       </div>

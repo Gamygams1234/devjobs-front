@@ -84,7 +84,7 @@ export default function AdminEdit(props) {
   if (loading) {
     return (
       <div className="outside-container">
-        <div className="inner-container pt-5 row justify-content-md-center ">
+        <div className="inner-container loader pt-5 row justify-content-md-center ">
           <Loader />
         </div>
       </div>
@@ -123,7 +123,7 @@ export default function AdminEdit(props) {
                   <option>United Kingdom</option>
                   <option>Germany</option>
                   <option>Japan</option>
-                  <option>New Zeland</option>
+                  <option>New Zealand</option>
                   <option>Russia</option>
                   <option>Singapore</option>
                 </select>
